@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,29 +18,27 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainMenu extends AppCompatActivity {
-
+public class ShowMenu extends AppCompatActivity {
     private ListView listView;
-
+    int intClickk ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_menu);
-
+        setContentView(R.layout.activity_show_menu);
         bindWidget();
         SynJSON synJSON = new SynJSON();
         synJSON.execute();
     }
     private void bindWidget() {
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView2);
+        intClickk =getIntent().getIntExtra("click",0);
     }//Bind Widget
     private class SynJSON extends AsyncTask<Void , Void ,String> {
-
         @Override
         protected String doInBackground(Void... params) {
 
             try {
-                String strURL = "http://csclub.ssru.ac.th/s56122201096/menu/FoodType.php";
+                String strURL = "http://csclub.ssru.ac.th/s56122201096/menu/MenuDatail.php?id="+Integer.toString(intClickk+1);
                 OkHttpClient okHttpClient = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 Request request = builder.url(strURL).build();
@@ -63,16 +62,16 @@ public class MainMenu extends AppCompatActivity {
                 JSONArray jsonArray = new JSONArray(s);
 
                 String[] iconString = new String[jsonArray.length()];
-                //String[] titleString = new String[jsonArray.length()];
+                String[] titleString = new String[jsonArray.length()];
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    iconString[i] = jsonObject.getString("food_img");
-                    //titleString[i] = jsonObject.getString("food_name");
+                    iconString[i] = jsonObject.getString("menu_img");
+                    titleString[i] = jsonObject.getString("menu_name");
 
                 }
 
-                MenuAdapter menuAdapter = new MenuAdapter(MainMenu.this,iconString);
+                ShowMenuAdapter menuAdapter = new ShowMenuAdapter(ShowMenu.this,iconString,titleString);
                 listView.setAdapter(menuAdapter);
 
                 listView.setOnItemClickListener( new AdapterView.OnItemClickListener(){
@@ -84,6 +83,7 @@ public class MainMenu extends AppCompatActivity {
 
 
 
+
             } catch (Exception e) {
                 Log.d("23/11/59", "onPost ==> " + e.toString());
             }
@@ -92,9 +92,16 @@ public class MainMenu extends AppCompatActivity {
 
     }//SynJson
     private void myIntenToDetail(int intClick) {
-        Intent objIntent =new Intent(MainMenu.this,ShowMenu.class);
+        Intent objIntent =new Intent(ShowMenu.this,ShowDetail.class);
         objIntent.putExtra("click",intClick);
+        objIntent.putExtra("id",intClickk);
+        Log.v("gg",""+intClickk);
         startActivity(objIntent);
     }
+    public void close(View view){
+        finish();
+    }
 }
+
+
 

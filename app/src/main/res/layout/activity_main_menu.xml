@@ -17,15 +17,16 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/Imagelogo"
-            android:background="@drawable/Easyfoodmenu" />
+            android:layout_height="120dp"
+            android:id="@+id/imageView3"
+            android:background="@drawable/menu" />
 
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listView"
             android:layout_gravity="center_horizontal"
-            android:background="#c6ffffff" />
+            android:background="#c6f8ccdc" />
+
     </LinearLayout>
 </RelativeLayout>

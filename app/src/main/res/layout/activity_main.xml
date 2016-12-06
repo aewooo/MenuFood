@@ -7,10 +7,26 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.wannaporn.phoso.menufoodthai.MainActivity">
+    tools:context="com.wannaporn.phoso.menufoodthai.MainActivity"
+    android:background="@drawable/wall06">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView" />
+        android:id="@+id/imageView"
+        android:background="@drawable/logo"
+        android:onClick="toMenu"
+        android:layout_margin="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu Food Thai"
+        android:id="@+id/textView"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:textColor="#bf00ac"
+        android:textSize="30dp"
+        android:layout_marginTop="20dp"
+        android:onClick="toMenu" />
 </RelativeLayout>
